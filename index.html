@@ -2,15 +2,67 @@
 <html>
 <head lang="uk">
     <meta charset="UTF-8">
-    <title>My Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buy List</title>
 
 
     <link rel="stylesheet" type="text/css" href="main.css" />
 </head>
 <body>
-	<span class="product-item">
-		Apple
-		<span class="amount">4</span>
-	</span>
+	<div class="badge" aria-label="Buy List — created by Maria Soshko">
+    <span class="badge__main">Buy List</span>
+    <span class="badge__author" aria-hidden="true">
+      Created by:<br /><strong>Maria Soshko</strong>
+    </span>
+  </div>
+
+  <div class="wrapper">
+
+    <!-- LEFT COLUMN: list + add form -->
+    <section class="col col--list" aria-label="Список товарів">
+
+      <!-- Add form -->
+      <div class="add-form">
+        <label for="new-item" class="sr-only">Назва товару</label>
+        <input
+          id="new-item"
+          class="add-form__input"
+          type="text"
+          placeholder="Назва товару"
+          aria-label="Назва товару"
+        />
+        <button
+          class="btn btn--add"
+          id="btn-add"
+          data-tooltip="Додати товар до списку"
+          aria-label="Додати товар"
+        >
+          Додати
+        </button>
+      </div>
+
+      <!-- Items list -->
+      <ul class="items-list" id="items-list" aria-label="Список покупок">
+        <!-- Items are rendered by JS -->
+      </ul>
+    </section>
+
+    <aside class="col col--summary" aria-label="Підсумок">
+      <div class="summary-box">
+        <h2 class="summary-title">Залишилося</h2>
+        <div class="tags" id="tags-remaining" aria-live="polite"></div>
+      </div>
+      <div class="summary-box">
+        <h2 class="summary-title">Куплено</h2>
+        <div class="tags" id="tags-bought" aria-live="polite"></div>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- Tooltip element (завдання 5) -->
+  <div class="tooltip" id="tooltip" role="tooltip" aria-hidden="true"></div>
+
+  <script src="main.js"></script>
 </body>
 </html>

@@ -54,6 +54,7 @@ function renderList() {
 
     if (!item.bought) {
       nameSpan.style.cursor = 'pointer';
+      nameSpan.dataset.tooltip = 'Натисніть щоб редагувати';
       nameSpan.addEventListener('click', () => startEditName(li, item, nameSpan));
     }
 
@@ -62,26 +63,33 @@ function renderList() {
     if (!item.bought) {
       const counter = document.createElement('div');
       counter.className = 'item__counter';
-      counter.innerHTML = `
-        <button
-          class="btn btn--counter minus"
-          aria-label="Зменшити кількість ${escapeHtml(item.name)}"
-          ${item.count <= 1 ? 'disabled' : ''}
-        >−</button>
-        <span class="item__count">${item.count}</span>
-        <button
-          class="btn btn--counter plus"
-          aria-label="Збільшити кількість ${escapeHtml(item.name)}"
-        >+</button>
-      `;
 
-      counter.querySelector('.minus').addEventListener('click', () => {
+      const minusBtn = document.createElement('button');
+      minusBtn.className = 'btn btn--counter minus';
+      minusBtn.textContent = '−';
+      minusBtn.setAttribute('aria-label', 'Зменшити кількість ' + item.name);
+      minusBtn.dataset.tooltip = 'Зменшити кількість';
+      if (item.count <= 1) minusBtn.disabled = true;
+      minusBtn.addEventListener('click', () => {
         if (item.count > 1) { item.count--; saveState(); renderAll(); }
       });
-      counter.querySelector('.plus').addEventListener('click', () => {
+
+      const countSpan = document.createElement('span');
+      countSpan.className = 'item__count';
+      countSpan.textContent = item.count;
+
+      const plusBtn = document.createElement('button');
+      plusBtn.className = 'btn btn--counter plus';
+      plusBtn.textContent = '+';
+      plusBtn.setAttribute('aria-label', 'Збільшити кількість ' + item.name);
+      plusBtn.dataset.tooltip = 'Збільшити кількість';
+      plusBtn.addEventListener('click', () => {
         item.count++; saveState(); renderAll();
       });
 
+      counter.appendChild(minusBtn);
+      counter.appendChild(countSpan);
+      counter.appendChild(plusBtn);
       li.appendChild(counter);
     }
 
@@ -93,6 +101,7 @@ function renderList() {
     boughtBtn.textContent = item.bought ? 'Зробити не купленим' : 'Не куплено';
     boughtBtn.setAttribute('aria-label', item.bought ? 'Зробити не купленим: ' + item.name : 'Позначити як куплене: ' + item.name);
     boughtBtn.setAttribute('aria-pressed', item.bought);
+    boughtBtn.dataset.tooltip = item.bought ? 'Повернути до списку' : 'Позначити як куплене';
     boughtBtn.addEventListener('click', () => {
       item.bought = !item.bought; saveState(); renderAll();
     });
@@ -103,6 +112,7 @@ function renderList() {
       removeBtn.className = 'btn btn--remove';
       removeBtn.textContent = '✕';
       removeBtn.setAttribute('aria-label', 'Видалити ' + item.name);
+      removeBtn.dataset.tooltip = 'Видалити товар';
       removeBtn.addEventListener('click', () => {
         items = items.filter(i => i.id !== item.id); saveState(); renderAll();
       });
@@ -156,6 +166,7 @@ function renderSummary() {
 function renderAll() {
   renderList();
   renderSummary();
+  attachTooltips();
 }
 
 document.getElementById('btn-add').addEventListener('click', addItem);
@@ -174,5 +185,46 @@ function addItem() {
   renderAll();
 }
 
+// =====================
+//  Tooltip
+// =====================
+const tooltip = document.getElementById('tooltip');
+let tooltipTimeout;
+
+function attachTooltips() {
+  document.querySelectorAll('[data-tooltip]').forEach(el => {
+    el.removeEventListener('mouseenter', onTooltipEnter);
+    el.removeEventListener('mouseleave', onTooltipLeave);
+    el.addEventListener('mouseenter', onTooltipEnter);
+    el.addEventListener('mouseleave', onTooltipLeave);
+  });
+}
+
+function onTooltipEnter(e) {
+  clearTimeout(tooltipTimeout);
+  const text = e.currentTarget.dataset.tooltip;
+  if (!text) return;
+  tooltip.textContent = text;
+  tooltip.setAttribute('aria-hidden', 'false');
+  positionTooltip(e.currentTarget);
+  tooltip.classList.add('is-visible');
+}
+
+function onTooltipLeave() {
+  tooltip.classList.remove('is-visible');
+  tooltipTimeout = setTimeout(() => {
+    tooltip.setAttribute('aria-hidden', 'true');
+  }, 200);
+}
+
+function positionTooltip(el) {
+  const rect = el.getBoundingClientRect();
+  const tw = tooltip.offsetWidth || 120;
+  let left = rect.left + rect.width / 2 - tw / 2;
+  const top = rect.top - 40 + window.scrollY;
+  left = Math.max(8, Math.min(left, window.innerWidth - tw - 8));
+  tooltip.style.left = left + 'px';
+  tooltip.style.top = top + 'px';
+}
 
 renderAll();

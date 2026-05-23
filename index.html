@@ -9,60 +9,95 @@
     <link rel="stylesheet" type="text/css" href="main.css" />
 </head>
 <body>
-	<div class="badge" aria-label="Buy List — created by Maria Soshko">
-    <span class="badge__main">Buy List</span>
-    <span class="badge__author" aria-hidden="true">
-      Created by:<br /><strong>Maria Soshko</strong>
-    </span>
-  </div>
+	<body>
+  <main class="page">
+    <section class="shopping-list" aria-labelledby="shopping-title">
+      <h1 id="shopping-title" class="visually-hidden">Кошик покупок</h1>
 
-  <div class="wrapper">
+<body>
+  <main class="page">
+    <section class="shopping-list">
+      <form class="add-form">
+        <input type="text" placeholder="Назва товару" aria-label="Назва товару">
+        <button type="submit" class="add-button">Додати</button>
+      </form>
 
-    <!-- LEFT COLUMN: list + add form -->
-    <section class="col col--list" aria-label="Список товарів">
+      <ul class="products">
+        <li class="product-row bought">
+          <span class="product-name">Помідори</span>
 
-      <!-- Add form -->
-      <div class="add-form">
-        <label for="new-item" class="sr-only">Назва товару</label>
-        <input
-          id="new-item"
-          class="add-form__input"
-          type="text"
-          placeholder="Назва товару"
-          aria-label="Назва товару"
-        />
-        <button
-          class="btn btn--add"
-          id="btn-add"
-          data-tooltip="Додати товар до списку"
-          aria-label="Додати товар"
-        >
-          Додати
-        </button>
-      </div>
+          <div class="counter">
+            <button class="round-button" disabled>−</button>
+            <span class="amount">2</span>
+            <button class="round-button">+</button>
+          </div>
 
-      <!-- Items list -->
-      <ul class="items-list" id="items-list" aria-label="Список покупок">
-        <!-- Items are rendered by JS -->
+          <div class="actions">
+            <button class="status-button">Не куплено</button>
+          </div>
+        </li>
+
+        <li class="product-row">
+          <span class="product-name">Печиво</span>
+
+          <div class="counter">
+            <button class="round-button">−</button>
+            <span class="amount">2</span>
+            <button class="round-button">+</button>
+          </div>
+
+          <div class="actions">
+            <button class="status-button">Куплено</button>
+            <button class="delete-button">×</button>
+          </div>
+        </li>
+
+        <li class="product-row">
+          <input class="edit-input" type="text" value="Сир">
+
+          <div class="counter">
+            <button class="round-button" disabled>−</button>
+            <span class="amount">1</span>
+            <button class="round-button">+</button>
+          </div>
+
+          <div class="actions">
+            <button class="status-button">Куплено</button>
+            <button class="delete-button">×</button>
+          </div>
+        </li>
       </ul>
     </section>
 
-    <aside class="col col--summary" aria-label="Підсумок">
-      <div class="summary-box">
-        <h2 class="summary-title">Залишилося</h2>
-        <div class="tags" id="tags-remaining" aria-live="polite"></div>
-      </div>
-      <div class="summary-box">
-        <h2 class="summary-title">Куплено</h2>
-        <div class="tags" id="tags-bought" aria-live="polite"></div>
-      </div>
+    <aside class="summary">
+      <section class="summary-section">
+        <h2>Залишилося</h2>
+
+        <div class="tags">
+          <span class="product-item">Печиво <span class="tag-amount">2</span></span>
+          <span class="product-item">Сир <span class="tag-amount">1</span></span>
+        </div>
+      </section>
+
+      <section class="summary-section">
+        <h2>Куплено</h2>
+
+        <div class="tags">
+          <span class="product-item bought-tag">
+            Помідори <span class="tag-amount">2</span>
+          </span>
+        </div>
+      </section>
     </aside>
+  </main>
 
-  </div>
+  <aside class="badge">
+    <div class="badge-title">Buy List</div>
 
-  <!-- Tooltip element (завдання 5) -->
-  <div class="tooltip" id="tooltip" role="tooltip" aria-hidden="true"></div>
-
-  <script src="main.js"></script>
+    <div class="badge-author">
+      Created by:<br>
+      Maria Soshko
+    </div>
+  </aside>
 </body>
 </html>

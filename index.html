@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-<html>
-<head lang="uk">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Buy List</title>
-
-
-    <link rel="stylesheet" type="text/css" href="main.css" />
+  <link rel="stylesheet" href="main.css" />
 </head>
 <body>
 
@@ -29,11 +27,36 @@
           type="text"
           placeholder="Назва товару"
           aria-label="Назва товару"
-          disabled
         />
         <button
           class="btn btn--add"
-          disabled
+          id="btn-add"
+          aria-label="Додати товар"
+        >
+          Додати
+        </button>
+      </div>
+
+      <ul class="items-list" id="items-list" aria-label="Список покупок">
+      </ul>
+    </section>
+
+    <aside class="col col--summary" aria-label="Підсумок">
+      <div class="summary-box">
+        <h2 class="summary-title">Залишилося</h2>
+        <div class="tags" id="tags-remaining" aria-live="polite"></div>
+      </div>
+      <div class="summary-box">
+        <h2 class="summary-title">Куплено</h2>
+        <div class="tags" id="tags-bought" aria-live="polite"></div>
+      </div>
+    </aside>
+
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
           aria-label="Додати товар"
         >
           Додати

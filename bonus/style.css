@@ -1,0 +1,136 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Центруємо вміст по горизонталі і вертикалі. */
+
+body {
+  min-height: 100vh;
+  background: #0d0d1a;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #e0e0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Головна картка гри */
+.container {
+  width: 560px;
+  padding: 34px 32px;
+  background: #13132b;
+  border: 1px solid #2a2a5a;
+  border-radius: 18px;
+  box-shadow: 0 0 40px rgba(100, 80, 255, 0.2);
+}
+
+header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+h1 {
+  font-size: 38px;
+  font-weight: 700;
+  color: #a78bfa;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.desc {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #7070a0;
+}
+
+/* Панель з лічильником і кнопкою */
+.info-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 12px 16px;
+  background: #1e1e40;
+  border-radius: 12px;
+  border: 1px solid #2e2e60;
+}
+
+.counter {
+  font-size: 18px;
+  color: #c4b5fd;
+}
+
+.counter strong {
+  color: #7c3aed;
+  font-size: 22px;
+}
+
+/* Нова гра */
+
+button {
+  background: #7c3aed;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+/* При наведенні кнопка темніє і піднімається на 1px, а при кліку трохи стискається */
+
+button:hover {
+  background: #6d28d9;
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* Контейнер для ігрового поля */
+.board-area {
+  background: #1a1a35;
+  border-radius: 14px;
+  padding: 16px;
+  border: 1px solid #2a2a55;
+}
+
+#wdr-component {
+  width: 100%;
+  height: 340px;
+}
+
+#message {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: #a78bfa;
+  min-height: 28px;
+}
+
+@media (max-width: 600px) {
+  body {
+    align-items: flex-start;
+    padding: 20px;
+  }
+
+  .container {
+    width: 100%;
+    padding: 24px 16px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  .info-bar {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
